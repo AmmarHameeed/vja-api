@@ -19,15 +19,17 @@
   <script src='https://www.google.com/recaptcha/api.js'></script>
   <script>
     var correctCaptcha = function(response) {
+      var classTo = document.getElementById('rcaptcha');
       console.log(response);
       // var v = grecaptcha.getResponse();
-      console.log("============>", response)
+      // console.log("============>", response)
       if (response.length == 0) {
         document.getElementById('captcha').innerHTML = "You can't leave Captcha Code empty";
         return false;
       }
       else {
-        document.getElementById('captcha').innerHTML = "Captcha completed";
+        // document.getElementById('captcha').innerHTML = "Captcha completed";
+        classTo.className += 'no-cross';
         return true;
       }
     };
