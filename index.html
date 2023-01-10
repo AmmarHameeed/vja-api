@@ -1,76 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div class="g-recaptcha" id="rcaptcha"  data-sitekey="6Le9UeYjAAAAABfr9TkmGQccdCEwcJ09SZDLohvK"></div>
-<span id="captcha" style="color:red" /></span> 
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <form method="post" action="">
+    <div class="g-recaptcha" id="rcaptcha" data-sitekey="6Le9UeYjAAAAABfr9TkmGQccdCEwcJ09SZDLohvK"></div>
+    <span id="captcha" style="color:red" /></span>
     <button type="submit" onclick="UserAction()">Search</button>
+  </form>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-    <!-- <script>
-        function UserAction() {
-            $.ajax({
-                type: "POST",
-                url: "https://websitescheduling.azurewebsites.net/api/test?code=BHYqUoedkUYqUKaEEHrnPqk0q9BbkKxjgouVs5S8CxTeAzFuJ_5ZWw==",
-                dataType: "json",
-                success: function (result, status, xhr) {
-                    // var code = JSON.stringify(result)
-                    var code = JSON.parse(result)
-                    console.log(code, "status:",status,"xhr:",xhr)
-                },
-                error: function (xhr, status, error) {
-                    alert("Status: " + status + " Error:" + error + " XHR Status " + xhr.status + " XHR TEXT" + xhr.statusText)
-                }
-            });
-        }
-
-    </script> -->
-    <script>
-        function get_action(form) 
-{
-    var v = grecaptcha.getResponse();
-    if(v.length == 0)
-    {
-        document.getElementById('captcha').innerHTML="You can't leave Captcha Code empty";
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <script>
+    function get_action(form) {
+      var v = grecaptcha.getResponse();
+      if (v.length == 0) {
+        document.getElementById('captcha').innerHTML = "You can't leave Captcha Code empty";
         return false;
+      }
+      else {
+        document.getElementById('captcha').innerHTML = "Captcha completed";
+        return true;
+      }
     }
-    else
-    {
-         document.getElementById('captcha').innerHTML="Captcha completed";
-        return true; 
+    function UserAction() {
+      var code = "BHYqUoedkUYqUKaEEHrnPqk0q9BbkKxjgouVs5S8CxTeAzFuJ_5ZWw=="
+      fetch('https://websitescheduling.azurewebsites.net/api/test?code=' + code)
+        .then(response => response.text())
+        .then(data => window.location.replace(data))
     }
-}
-      function UserAction() {
-        var code = "BHYqUoedkUYqUKaEEHrnPqk0q9BbkKxjgouVs5S8CxTeAzFuJ_5ZWw=="
-        fetch('https://websitescheduling.azurewebsites.net/api/test?code='+code)
-   .then( response => response.text() )
-   .then( data => window.location.replace(data) )
+  </script>
+</body>
 
-//         fetch('https://websitescheduling.azurewebsites.net/api/test?code=BHYqUoedkUYqUKaEEHrnPqk0q9BbkKxjgouVs5S8CxTeAzFuJ_5ZWw', {
-//         // fetch('https://websitescheduling.azurewebsites.net/api/test?code=BHYqUoedkUYqUKaEEHrnPqk0q9BbkKxjgouVs5S8CxTeAzFuJ_5ZWw', {
-// 	method: 'POST',
-// 	body: 'title=' + encodeURIComponent('New Pirate Captain') + '&body=' + encodeURIComponent('Arrrrrr-ent you excited?') + '&userID=3',
-// 	mode: 'cors',
-//     headers: {
-// 		'Content-type': 'application/x-www-form-urlencoded'
-// 	}
-// }).then(function (response) {
-// 	if (response.ok) {
-// 		return response.json();
-// 	}
-// 	return Promise.reject(response);
-// }).then(function (data) {
-// 	console.log(data);
-// }).catch(function (error) {
-// 	console.warn('Something went wrong.', error);
-// });
-}
-    </script>
-  </body>
 </html>
