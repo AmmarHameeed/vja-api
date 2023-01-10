@@ -10,7 +10,7 @@
 
 <body>
   <form method="post" action="">
-    <div class="g-recaptcha" id="rcaptcha" data-sitekey="6Le9UeYjAAAAABfr9TkmGQccdCEwcJ09SZDLohvK"></div>
+    <div class="g-recaptcha" id="rcaptcha" data-sitekey="6Le9UeYjAAAAABfr9TkmGQccdCEwcJ09SZDLohvK" data-callback="correctCaptcha"></div>
     <span id="captcha" style="color:red" /></span>
     <button type="submit" onclick="UserAction()">Search</button>
   </form>
@@ -18,7 +18,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src='https://www.google.com/recaptcha/api.js'></script>
   <script>
-    function get_action(form) {
+    var correctCaptcha = function(response) {
+      console.log(response);
+    };
+
+    // function get_action(form) {
       var v = grecaptcha.getResponse();
       console.log("============>", v)
       if (v.length == 0) {
@@ -29,7 +33,7 @@
         document.getElementById('captcha').innerHTML = "Captcha completed";
         return true;
       }
-    }
+    // }
     function UserAction() {
       var code = "BHYqUoedkUYqUKaEEHrnPqk0q9BbkKxjgouVs5S8CxTeAzFuJ_5ZWw=="
       fetch('https://websitescheduling.azurewebsites.net/api/test?code=' + code)
