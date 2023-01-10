@@ -52,6 +52,7 @@
       console.log(emailValue);
       var code = "BHYqUoedkUYqUKaEEHrnPqk0q9BbkKxjgouVs5S8CxTeAzFuJ_5ZWw=="
       fetch('https://websitescheduling.azurewebsites.net/api/test?code=' + code, {
+        method: 'POST',
         body: '&email=' + emailValue,
         mode: 'cors',
         headers: {
