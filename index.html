@@ -43,19 +43,23 @@
       }
       else {
         classTo.className += 'no-cross';
-        
+
         return true;
       }
     };
     function UserAction() {
       var emailValue = document.getElementById('emailInput').value;
-        console.log(emailValue);
+      console.log(emailValue);
       var code = "BHYqUoedkUYqUKaEEHrnPqk0q9BbkKxjgouVs5S8CxTeAzFuJ_5ZWw=="
-      fetch('https://websitescheduling.azurewebsites.net/api/test?code=' + code,{
+      fetch('https://websitescheduling.azurewebsites.net/api/test?code=' + code, {
         body: '&email=' + emailValue,
+        mode: 'cors',
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded'
+        }
       }).then(response => response.text())
         .then(data => console.log(data))
-        // .then(data => window.location.replace(data))
+      // .then(data => window.location.replace(data))
     }
   </script>
 </body>
