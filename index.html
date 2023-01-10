@@ -21,7 +21,6 @@
 </head>
 
 <body>
-  <!-- <form method="" action=""> -->
   <div>
     <label>Email:</label>
     <input id="emailInput" type="email" placeholder="Enter your email" required />
@@ -30,7 +29,6 @@
     data-callback="correctCaptcha"></div>
   <span id="captcha" style="color:red" /></span>
   <button type="submit" id="submitBtn" class="faded" onclick="UserAction()">Search</button>
-  <!-- </form> -->
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src='https://www.google.com/recaptcha/api.js'></script>
@@ -47,21 +45,7 @@
         return true;
       }
     };
-    function UserAction() {
-      var emailValue = document.getElementById('emailInput').value;
-      console.log(emailValue);
-      var code = "BHYqUoedkUYqUKaEEHrnPqk0q9BbkKxjgouVs5S8CxTeAzFuJ_5ZWw=="
-      fetch('https://websitescheduling.azurewebsites.net/api/test?code=' + code, {
-        method: 'POST',
-        body: '&email=' + emailValue,
-        mode: 'cors',
-        headers: {
-          'Content-type': 'application/x-www-form-urlencoded'
-        }
-      }).then(response => response.text())
-        // .then(data => console.log(data))
-      .then(data => window.location.replace(data))
-    }
+    
   </script>
 </body>
 
