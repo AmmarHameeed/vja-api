@@ -20,6 +20,7 @@
   <script>
     function get_action(form) {
       var v = grecaptcha.getResponse();
+      console.log("============>", v)
       if (v.length == 0) {
         document.getElementById('captcha').innerHTML = "You can't leave Captcha Code empty";
         return false;
