@@ -20,12 +20,9 @@
   <script>
     var correctCaptcha = function(response) {
       console.log(response);
-    };
-
-    // function get_action(form) {
-      var v = grecaptcha.getResponse();
-      console.log("============>", v)
-      if (v.length == 0) {
+      // var v = grecaptcha.getResponse();
+      console.log("============>", response)
+      if (response.length == 0) {
         document.getElementById('captcha').innerHTML = "You can't leave Captcha Code empty";
         return false;
       }
@@ -33,6 +30,10 @@
         document.getElementById('captcha').innerHTML = "Captcha completed";
         return true;
       }
+    };
+
+    // function get_action(form) {
+      
     // }
     function UserAction() {
       var code = "BHYqUoedkUYqUKaEEHrnPqk0q9BbkKxjgouVs5S8CxTeAzFuJ_5ZWw=="
