@@ -33,6 +33,10 @@
 </html>
 <script type="text/javascript">
 	$(document).ready(function () {
+		$.getJSON("api.json", function(json) {
+    console.log("Inside getJson",json); // this will show the info it in firebug console
+});
+
 		var $pagination = $('#pagination'),
 			totalRecords = 0,
 			records = [],
@@ -43,12 +47,12 @@
 
 		$.ajax({
 			// url: "http://127.0.0.1:9973/data-base/db67279b59ae8bd",
-			url: "/api.json",
-			async: true,
+			url: "api.json",
+			// async: true,
 			dataType: 'json',
 			success: function (data) {
 				records = data;
-				console.log(records);
+				console.log("Inside Ajax",records);
 				totalRecords = records.length;
 				totalPages = Math.ceil(totalRecords / recPerPage);
 				apply_pagination();
