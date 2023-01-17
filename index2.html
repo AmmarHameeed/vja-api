@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    .form__section {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #emailInput {
+      padding: 13px 10px;
+      border-radius: 5px;
+      border: 1px solid #e3e3e3;
+      margin-left: 20px;
+    }
+
+    #submitBtn {
+      height: 40px;
+      padding: 13px 27px;
+      line-height: 0px;
+      border-radius: 6px;
+      color: #ffffff;
+      background: #007bff;
+      border: none;
+    }
+
+    #rcaptcha {
+      margin: 30px;
+    }
+
+    .faded {
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .faded.no-cross {
+      pointer-events: all;
+      opacity: 1;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="form__section">
+    <div class="form__row">
+      <label>Email:</label>
+      <input id="emailInput" type="email" placeholder="Enter your email" required />
+    </div>
+    <!-- ADD YOUR DATA KEY IN THE DATA-SITEKEY ATTRIBUTE -->
+    <div class="g-recaptcha" id="rcaptcha" data-sitekey="ADD_DATASET_KEY_HERE"
+      data-callback="correctCaptcha"></div>
+    <span id="captcha" style="color:red" /></span>
+    <button type="submit" id="submitBtn" class="faded" onclick="UserAction()">Search</button>
+  </section>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <script>
+    var correctCaptcha = function (response) {
+      var classTo = document.getElementById('submitBtn');
+      if (response.length == 0) {
+        document.getElementById('captcha').innerHTML = "You can't leave Captcha Code empty";
+        return false;
+      }
+      else {
+        classTo.className += ' no-cross';
+        document.getElementById('submitBtn').setAttribute('data-recaptcha', response);
+        return true;
+      }
+    };
+    function UserAction() {
+      var dataValue = document.getElementById('submitBtn').getAttribute('data-recaptcha');
+      var emailValue = document.getElementById('emailInput').value;
+      var code = "BHYqUoedkUYqUKaEEHrnPqk0q9BbkKxjgouVs5S8CxTeAzFuJ_5ZWw==";
+
+
+      fetch('https://websitescheduling.azurewebsites.net/api/test?code=' + code, {
+        method: 'POST',
+        body: '&email=' + emailValue + '&recaptchaValue='+dataValue,
+        mode: 'cors',
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded'
+        }
+      }).then(response => response.text())
+        .then(data => window.location.replace(data))
+    }
+  </script>
+</body>
+
+</html>
